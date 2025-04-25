@@ -6,21 +6,28 @@ public class Catalogo extends Biblioteca{
 //    + tamaño catálogo
 //    + libros: int(ISBN)
 
+// + consulta tamaño catálogo
+//+ añade libro al catálogo: int(ISBN)
+//+ buscar libro del catálogo: int(ISBN)
+//+ borrar libro del catálogo: int(ISBN)
+
     private int ID_Catalogo;
     private int tamano;
-    private Set<Libro> libros;
+//    private Set<Libro> libros;
+    private Libro libroNuevo;
+    private Libro[] libros;
 
-    public Catalogo(String nombre, String director, String tematica, int ID_Catalogo, int tamano, Set<Libro> libros) {
+    public Catalogo(String nombre, String director, String tematica, int ID_Catalogo, int tamano) {
         super(nombre, director, tematica);
         this.ID_Catalogo = ID_Catalogo;
         this.tamano = tamano;
-        this.libros = libros;
+        Libro[] libros = new Libro[tamano];
     }
 
-    public Catalogo(int ID_Catalogo, int tamano, Set<Libro> libros) {
+    public Catalogo(int ID_Catalogo, int tamano) {
         this.ID_Catalogo = ID_Catalogo;
         this.tamano = tamano;
-        this.libros = libros;
+        Libro[] libros = new Libro[tamano];
     }
 
     public Catalogo(){
@@ -35,18 +42,35 @@ public class Catalogo extends Biblioteca{
     }
 
     public int getTamano() {
-        return tamano;
+        return this.libros.length;
     }
 
     public void setTamano(int tamano) {
         this.tamano = tamano;
+        this.libros = new Libro[tamano];
     }
 
-    public Set<Libro> getLibros() {
+    public Libro[] getLibros() {
         return libros;
     }
 
-    public void setLibros(Set<Libro> libros) {
+    public void setLibros(Libro[] libros) {
         this.libros = libros;
     }
+
+    public Libro getLibroNuevo() {
+        return libroNuevo;
+    }
+
+    public void setLibroNuevo(Libro libroNuevo) {
+        this.libroNuevo = libroNuevo;
+//        if(this.libros[libros.length-1].getAutor() != null ){
+//            this.libros[libros.length-1] = libroNuevo;
+//        }
+//        else{
+//            System.out.println("EL catálogo esta lleno.\n");
+//        }
+        libros[0] = libroNuevo;
+    }
+
 }

@@ -5,53 +5,60 @@ public class Entrada {
 
     static Scanner in = new Scanner(System.in).useDelimiter("\n");
 
-
     public static void main(String[] args) {
+        int ID_Catalogo = 1;
         Biblioteca bNacionalEsp = new Biblioteca();
+
         bNacionalEsp.setNombre("Biblioteca Naciónal de España");
         bNacionalEsp.setDirector("Óscar");
         bNacionalEsp.setTematica("todas");
         boolean appActivo = true;
         System.out.println("\nHola, bienvenidos a la app de bibliotecas.");
+        long choice, choiceEsISBN = 0;
 
         while (appActivo) {
+            Biblioteca biblio1 = new Biblioteca();
             System.out.println("""
+                     ~ Menú principal de la app ~
                     \s
                          \
-                     1 - Entrar o añade biblioteca
+                     1 - Entrar o añadir biblioteca
                     \s
                          \
                      2 - Salir del app
                     \s
                          \
                      3 - Para buscar a un libro, escribe el ISBN (SIN los 3 primeros números "97x"):  \s""");
-            System.out.print("\n -> ");
-
+            System.out.print("\n  -> ");
 //            input = Integer.toString((int) choiceCopy);
             // Spanish: 10 digit 978-84
             // Spanish: 13 digit 979-13
 //            if(input.length()>1){ //check if menu selection 1,2,3   OR  ISBN (10 or 13 digits) entered
 //                choice = 4;
 //            }
-            long choice, choiceEsISBN = 0;
             choice = in.nextLong();
             if (choice > 10) {
                 choiceEsISBN = gestionarISBNinput(choice);
                 choice = 4;
             }
             String input;
-
             System.out.printf("choice/case = %d\n",choice);
+            byte catalo_libros = 00;
+            boolean biblio_exists = false;
             switch ((int) choice) {
                 case 1:
                     System.out.println("case1:");
-                    System.out.println("Escribe el nombre de la biblioteca que buscas:");
+                    System.out.println("|  Escribe el nombre de la biblioteca que buscas:");
+                    System.out.print("->  ");
                     String nombre_biblioteca = "";
+//                    TODO: handle input Mismatch exception
                     nombre_biblioteca += in.next();
 //                    System.out.println("nombre_biblioteca = " + nombre_biblioteca);
 //                    System.out.println("bNacionalEsp.getNombre(); = " + bNacionalEsp.getNombre());
+//                    TODO: Comprobar si existe el nombre de la biblioteca en una lista?
                     if (Objects.equals(nombre_biblioteca, bNacionalEsp.getNombre())) {
                         bNacionalEsp.Mostrar();
+                        biblio_exists = true;
 //                    {
 //                        System.out.printf("\nBienvenidos a la biblioteca %s.\n", nombre_biblioteca);
 //                        System.out.println("""
@@ -61,18 +68,95 @@ public class Entrada {
 //                                """);
 //                    }
                     }else {
-                        System.out.println("No se ha encontrada la biblioteca que buscas.");
-                        System.out.println("Añade la biblioteca  \"" + nombre_biblioteca + "\" ? [pulsar 's' o 'S' para confirmar u otra tecla para salir]");
+                        System.out.println("|  No se ha encontrada la biblioteca que buscas.");
+                        System.out.println("||  ¿Añade la biblioteca  \"" + nombre_biblioteca + "\"?" +
+                                "\n|||   Pulsar 's' o 'S' para confirmar u otra tecla para salir:");
+                        System.out.print("||->  ");
+//                    TODO: handle input Mismatch exception
                         input = in.next();
                         if (!Objects.equals(input, "s") && !Objects.equals(input, "S")) {
                             break;
                         }
 //                      else {
-                        Biblioteca b1 = new Biblioteca();
-                        b1.Crear(nombre_biblioteca);
-                        b1.CrearYMostrar("Jose", "Comedia");
-                        b1.Mostrar();
+//                        Biblioteca biblio1 = new Biblioteca();
+
+
+                        System.out.print("Escribe el nombre del director/a: ");
+                        String director = in.next();
+                        System.out.print("Escribe la tematica, o \"n\" si no hay: ");
+                        String tematica = in.next();
+                        if(Objects.equals(tematica, "n") || Objects.equals(tematica, "N")){
+                            biblio1.Nombrar(nombre_biblioteca);
+                            biblio1.setDirector(director);
+                        }else{
+                            biblio1 = new Biblioteca(nombre_biblioteca,director, tematica);
+                            biblio1.Mostrar();
+                        }
+
+                        Libro libro1 = new Libro("Harry", 9788446047674L, 10, "Policiaca");
+                        System.out.print("libro1 = ");
+                        libro1.mostrarDatos();
+                        biblio_exists = true;
+//                        biblio1.setLibroNuevo(libro1);
+//                        System.out.println("biblio1.getTamano() = " + biblio1.getTamano());
 //                      }
+                    }
+                    boolean dentroBibloteca = true;
+
+                    while (dentroBibloteca){
+//      TODO: check if any catalogue and/or books, modify menu accordingly.
+                        if(biblio_exists) {
+                            System.out.println("    ~ Menú de gestión de la biblioteca ~");
+//                            byte catalo_libros = 00;
+                            System.out.println("byte catalo_libros = (00, 10, 11)");
+                            catalo_libros = in.nextByte();
+                            System.out.println("byte catalo_libros = "+catalo_libros);
+                            switch (catalo_libros) { // Menu dynamico
+                                case 00: //catalo 0, libros 0
+                                    bibMenuItems(catalo_libros);
+                                    break;
+                                case 10: //catalo 1, libros 0
+                                    bibMenuItems(catalo_libros);
+                                    break;
+                                case 11: //catalo 1, libros 1
+                                    bibMenuItems(catalo_libros);
+                                    //             TODO:  5 - buscar, añade o borrar  libro del catálogo:  Enter ISBN:
+                                    break;
+                            }
+
+                            int caseBibMenu = 0;
+                            System.out.print("\n  -> ");
+                            caseBibMenu = in.nextInt();
+                            switch (caseBibMenu){   //Menu de la biblioteca
+                                case 1: //Construir catálogo
+//                                    assert biblio1 != null;
+                                    Class<?> className = biblio1.getClass();
+                                    System.out.println("Class name: " + className.getName());
+
+                                    if(className.getName().equals("java.lang.Catalogo")){
+                                        System.out.println("biblio1.getClass() = " + biblio1.getClass());
+                                        ID_Catalogo += 1;
+                                    }else{
+                                        System.out.println(" Escribe el tamano del catalogo: ");
+                                        int tamano = in.nextInt();
+                                        biblio1 = new Catalogo(ID_Catalogo,tamano);
+                                    }
+                                    biblio1.Mostrar();
+                                    System.out.println("getID_Catalogo() = " + ((Catalogo) biblio1).getID_Catalogo());
+                                case 2: //Salir
+                                    dentroBibloteca = false;
+                                    System.out.println("    Saliendo del gestor de la biblioteca...");
+                                    break;
+                                case 3: // Para buscar, añadir o borrar a un libro del catálogo, escribe el ISBN
+                                case 4: // Consultar el tamaño del catálogo
+                                case 5: // Mostrar todos los libros disponibles del catálogo
+
+                                default:
+                                    dentroBibloteca = false;
+                                    System.out.println("    Saliendo del gestor de la biblioteca...");
+                                    break;
+                            }
+                        }
                     }
                     break;
                 case 2:
@@ -82,13 +166,14 @@ public class Entrada {
 //                    input = ISBN
                     System.out.println("case 3:");
                     System.out.println("Escribe el ISBN del libro que buscas (SIN los 3 primeros números 97x):  ");
-                    choice= in.nextInt();
+//                  TODO: handle InputMismatchException when long 13 digit ISBN e.g."9788446047674" entered
+                    choice = in.nextLong();
                     choiceEsISBN = gestionarISBNinput(choice);
                 case 4: //buscar libro por ISBN, 10 o más digitos
 //                    input = ISBN
                     System.out.println("case 4:\n");
                     System.out.println("---------------------------------------------------------------------- ");
-                    System.out.printf(" El ISBN “%d” no corresponde a ningun libro en nuestra colección.\n",choiceEsISBN);
+                    System.out.printf(" El ISBN “%d” no corresponde a ningún libro en nuestra colección.\n",choiceEsISBN);
                     System.out.println("\n Entra a una biblioteca para añade un libro.");
                     break;
                 default:
@@ -100,6 +185,39 @@ public class Entrada {
         System.out.println("Vuele pronto.");
     }
 
+    private static void bibMenuItems(int catalo_libros) {
+        int item = catalo_libros;
+        if(item == 00){
+            System.out.println("""
+                    \s
+                         \
+                     1 - Construir catálogo\s""");
+        }
+        else{
+            System.out.println("""
+                    \s
+                         \
+                     1 - Consultar el tamaño del catálogo\\s""");
+        }
+        System.out.println("""
+                 \s
+                      \
+                  2 - Salir de la biblioteca\s""");
+
+        if (item == 11) {
+            System.out.println("""
+                    \s
+                         \
+                     3 - Para buscar, añadir o borrar a un libro del catálogo, escribe el ISBN (SIN los 3 primeros números "97x")
+                    \s
+                         \
+                     4 - Mostrar todos los libros disponibles del catálogo\s""");
+        }
+    }
+
+
+//    TODO: handle 13 digit ISBNs, remove 978/9 and then search for matched ISBN in catalogue
+//    TODO: make ISBN checksum checker
     private static long gestionarISBNinput(long choice){
         StringBuilder original = new StringBuilder();
         long choiceEsISBN;
@@ -145,6 +263,7 @@ public class Entrada {
             } else {
                 firstLtr = original.substring(0, 1);
                 System.out.println("firstLtr is NOT 0 = " + firstLtr);
+//                TODO: add 978 and 0 back to front of number i
                 do {
                     choiceEsISBN /= 10;
                     i++;

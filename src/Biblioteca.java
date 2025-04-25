@@ -38,9 +38,9 @@ public class Biblioteca {
     }
 
 
-    public void Crear(String nombre_bib){
+    public void Nombrar(String nombre_bib){
         nombre = nombre_bib;
-        System.out.printf("%s creado.", nombre);
+        System.out.printf("%s creado.\n", nombre);
     }
 
     public void Mostrar(){
@@ -50,12 +50,18 @@ public class Biblioteca {
         System.out.println("  Temática = " + tematica);
         System.out.println("----------------------------------------------- ");
     }
-    public void CrearYMostrar(String director_bib, String tematica_bib){
+    public void DefinirYMostrar(String director_bib, String tematica_bib){
         System.out.printf("Bienvenidos a la %s\n", nombre);
-        setDirector(director_bib);
-        setTematica(tematica_bib);
+//        setDirector(director_bib);
+        this.director = director;
+//        setTematica(tematica_bib);
+        this.tematica = tematica;
         System.out.println("director = " + director);
         System.out.println("temática = " + tematica);
     }
+
+//+ construir catálogo: int(max. cantidad libros)
+//+ mostrar todos los libros disponibles
+//+ añade temática
 
 }

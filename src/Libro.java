@@ -5,13 +5,13 @@ public class Libro {
 //+ temática: String
 
     private String autor;
-    private long ISGN;
+    private long ISBN;
     private int numPaginas;
     private String tematica;
 
-    public Libro(String autor, long ISGN, int numPaginas, String tematica) {
+    public Libro(String autor, long ISBN, int numPaginas, String tematica) {
         this.autor = autor;
-        this.ISGN = ISGN;
+        this.ISBN = ISBN;
         this.numPaginas = numPaginas;
         this.tematica = tematica;
     }
@@ -28,12 +28,12 @@ public class Libro {
         this.autor = autor;
     }
 
-    public long getISGN() {
-        return ISGN;
+    public long getISBN() {
+        return ISBN;
     }
 
-    public void setISGN(long ISGN) {
-        this.ISGN = ISGN;
+    public void setISBN(long ISBN) {
+        this.ISBN = ISBN;
     }
 
     public int getNumPaginas() {
@@ -50,6 +50,13 @@ public class Libro {
 
     public void setTematica(String tematica) {
         this.tematica = tematica;
+    }
+
+    public void mostrarDatos(){
+        System.out.println("autor = " + autor);
+        System.out.println("ISBN = " + ISBN);
+        System.out.println("numPaginas = " + numPaginas);
+        System.out.println("tematica = " + tematica);
     }
 }
 
