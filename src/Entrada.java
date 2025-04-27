@@ -380,66 +380,7 @@ public class Entrada {
 //        }
 //    }
 
-//    TODO: handle 13 digit ISBNs, remove 978/9 and then search for matched ISBN in catalogue
-//    TODO: make ISBN checksum checker
-    private static long gestionarISBNinput(long choice){
-        StringBuilder original = new StringBuilder();
-        long choiceEsISBN;
-        choiceEsISBN = choice;
-        int i = 0;
-        long lastDigit;
-        lastDigit = choiceEsISBN % 10;
-//        System.out.println("    check digit "+i+" = " + lastDigit);
-        if (choice > 1000000000) { //844 604 767
-            do {
-                choiceEsISBN /= 10;
-                i++;
-                lastDigit = choiceEsISBN % 10;
-//            System.out.println("    lastDigit "+i+" = " + lastDigit);
-                original.insert(0, lastDigit);
-            } while (choiceEsISBN > 979999999);
-//                int test10 = 1205;
-//                System.out.println("test10  % 10 = "+test10 % 10);
-//                input = Integer.toString((int) choiceEsISBN);
-//        System.out.println(i + " 0's removed\n");
-//        System.out.println("original number = " + choice);
-            System.out.println("original "+i+" end digits of long (not incl. check digit) = " + original);
-//        while (i > 0) {
-////                    System.out.print("0");
-//            i--;
-//        }
-        }else { //    052551031(4)    8446047674
-            String firstLtr = null;
-            original.insert(0, choiceEsISBN);
-            if (choice > 9999999 && choice < 100000000) {
-                System.out.println("choiceEsISBN = " + choiceEsISBN);
-                original.insert(0, choiceEsISBN);
-                System.out.println("original = " + original);
-                //          String strExpectFirst = original.substring(1,original.length());
-
-                do {
-                    choiceEsISBN /= 10;
-                    i++;
-                    lastDigit = choiceEsISBN % 10;
-//            System.out.println("    lastDigit "+i+" = " + lastDigit);
-                    original.insert(0, lastDigit);
-                } while (choiceEsISBN > 9999999);
-            } else {
-                firstLtr = original.substring(0, 1);
-                System.out.println("firstLtr is NOT 0 = " + firstLtr);
-//                TODO: add 978 and 0 back to front of number i
-                do {
-                    choiceEsISBN /= 10;
-                    i++;
-                    lastDigit = choiceEsISBN % 10;
-//            System.out.println("    lastDigit "+i+" = " + lastDigit);
-                    original.insert(0, lastDigit);
-                } while (choiceEsISBN > 99999998);
-            }
-        }
-        System.out.println();
-        return choiceEsISBN;
-    }
+//
 
 }
 
