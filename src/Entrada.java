@@ -52,7 +52,6 @@ public class Entrada {
 //            }
             choice = in.nextLong();
             if (choice > 10) {
-                choiceEsISBN = gestionarISBNinput(choice);
                 choice = 4;
             }
             String input;
