@@ -17,7 +17,6 @@ public class Libro {
     }
 
     public Libro(){
-
     }
 
     public String getAutor() {
@@ -53,10 +52,11 @@ public class Libro {
     }
 
     public void mostrarDatos(){
-        System.out.println("autor = " + autor);
-        System.out.println("ISBN = " + ISBN);
-        System.out.println("numPaginas = " + numPaginas);
-        System.out.println("tematica = " + tematica);
+        System.out.println("    Autor    = " + autor);
+        System.out.println("    ISBN     = " + ISBN);
+        System.out.println("    Paginas  = " + numPaginas);
+        System.out.println("    Tematica = " + tematica);
+        System.out.println();
     }
 }
 

@@ -1,4 +1,4 @@
-public class Biblioteca {
+public class Biblioteca implements BibliotecaBuscarLibro {
 
     public Biblioteca(String nombre, String director, String tematica) {
         this.nombre = nombre;
@@ -6,7 +6,6 @@ public class Biblioteca {
         this.tematica = tematica;
     }
     public Biblioteca(){
-
     }
 
     private String nombre;
@@ -37,6 +36,10 @@ public class Biblioteca {
         this.tematica = tematica;
     }
 
+    @Override
+    public int getTamano() {
+        return 0;
+    }
 
     public void Nombrar(String nombre_bib){
         nombre = nombre_bib;
@@ -59,6 +62,16 @@ public class Biblioteca {
         System.out.println("director = " + director);
         System.out.println("temática = " + tematica);
     }
+
+    @Override
+    public Libro BuscarLibro(long ISBN){
+        return null;
+    }
+
+//    public String BibliotecasLista(){
+//        if
+//        return bibliotecas
+//    }
 
 //+ construir catálogo: int(max. cantidad libros)
 //+ mostrar todos los libros disponibles
